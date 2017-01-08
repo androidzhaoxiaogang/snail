@@ -5,16 +5,67 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>snail</groupId>
-    <artifactId>snail</artifactId>
+    <artifactId>snail-framework</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>snail-common</module>
-        <module>snail-crm</module>
-        <module>snail-oa</module>
-        <module>snail-gateway</module>
+        <module>snail-service</module>
+        <module>snail-network</module>
     </modules>
 
     <packaging>pom</packaging>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mysql.version>6.0.5</mysql.version>
+        <spring.boot.version>1.4.3.RELEASE</spring.boot.version>
+    </properties>
+
+
+    <build>
+        <plugins>
+
+        </plugins>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>snail</groupId>
+                <artifactId>snail-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>snail</groupId>
+                <artifactId>snail-network</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>snail</groupId>
+                <artifactId>snail-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+
+            <!-- database -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 
 </project>
