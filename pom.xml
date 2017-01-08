@@ -11,6 +11,9 @@
         <module>snail-common</module>
         <module>snail-service</module>
         <module>snail-network</module>
+        <module>snail-datasource</module>
+        <module>snail-core</module>
+        <module>snail-system</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -30,6 +33,7 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--snail modules -->
             <dependency>
                 <groupId>snail</groupId>
                 <artifactId>snail-common</artifactId>
@@ -45,6 +49,12 @@
             <dependency>
                 <groupId>snail</groupId>
                 <artifactId>snail-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>snail</groupId>
+                <artifactId>snail-datasource</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -68,4 +78,27 @@
         </dependencies>
     </dependencyManagement>
 
+    <repositories>
+        <repository>
+            <id>snail-framework</id>
+            <name>Nexus Release Repository</name>
+            <url>http://nexus.snail/content/groups/public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://nexus.snail/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://nexus.snail/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

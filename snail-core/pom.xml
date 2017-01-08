@@ -9,12 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>snail-network</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>snail-http</module>
-        <module>snail-websocket</module>
-    </modules>
+    <artifactId>snail-core</artifactId>
 
 
 </project>
