@@ -7,6 +7,24 @@
     <groupId>snail</groupId>
     <artifactId>snail-framework</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>${project.groupId}:${project.artifactId}</name>
+    <url>https://github.com/androidzhaoxiaogang/snail</url>
+    <description>rest api framework</description>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/androidzhaoxiaogang/snail.git</connection>
+        <developerConnection>scm:git:https://github.com/androidzhaoxiaogang/snail.git</developerConnection>
+        <url>https://github.com/androidzhaoxiaogang/snail</url>
+        <tag>${project.version}</tag>
+    </scm>
+
     <modules>
         <module>snail-common</module>
         <module>snail-service</module>
@@ -22,11 +40,37 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mysql.version>6.0.5</mysql.version>
         <spring.boot.version>1.4.3.RELEASE</spring.boot.version>
+        <maven.scm.version>1.8.1</maven.scm.version>
+        <maven.source.version>2.4</maven.source.version>
     </properties>
 
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-scm-plugin</artifactId>
+                <version>${maven.scm.version}</version>
+                <configuration>
+                    <connectionType>connection</connectionType>
+                </configuration>
+            </plugin>
+            <!-- 要将源码放上去，需要加入这个插件 -->
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven.source.version}</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
         </plugins>
     </build>
