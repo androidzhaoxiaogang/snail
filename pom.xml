@@ -25,13 +25,26 @@
         <tag>${project.version}</tag>
     </scm>
 
+    <developers>
+        <developer>
+            <name>snail</name>
+            <email>286505491@qq.com</email>
+            <url>http://blog.csdn.net/androidzhaoxiaogang</url>
+        </developer>
+    </developers>
+
     <modules>
         <module>snail-common</module>
         <module>snail-service</module>
         <module>snail-network</module>
         <module>snail-datasource</module>
-        <module>snail-core</module>
         <module>snail-system</module>
+        <module>snail-task</module>
+        <module>snail-bean</module>
+        <module>snail-mq</module>
+        <module>snail-starter</module>
+        <module>snail-search</module>
+        <module>snail-cache</module>
     </modules>
 
     <packaging>pom</packaging>
