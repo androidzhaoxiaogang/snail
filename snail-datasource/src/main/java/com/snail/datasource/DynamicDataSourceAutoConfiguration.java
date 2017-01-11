@@ -1,0 +1,124 @@
+package com.snail.datasource;
+
+import com.atomikos.icatch.config.UserTransactionService;
+import com.atomikos.icatch.config.UserTransactionServiceImp;
+import com.atomikos.icatch.jta.UserTransactionImp;
+import com.atomikos.icatch.jta.UserTransactionManager;
+import com.atomikos.jdbc.AtomikosDataSourceBean;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.jta.atomikos.AtomikosProperties;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.transaction.jta.JtaTransactionManager;
+
+import javax.sql.DataSource;
+import javax.transaction.SystemException;
+import java.util.Properties;
+
+@Configuration
+@ConditionalOnMissingBean(DynamicDataSource.class)
+@EnableConfigurationProperties(DynamicDataSourceProperties.class)
+@ComponentScan("org.hsweb.web.datasource.dynamic")
+public class DynamicDataSourceAutoConfiguration {
+
+    @Autowired
+    private DynamicDataSourceProperties properties;
+
+    @Bean(initMethod = "init", destroyMethod = "shutdownForce")
+    public UserTransactionServiceImp userTransactionService() {
+        AtomikosProperties atomikosProperties = properties.getIcatch();
+        Properties properties = new Properties();
+        properties.putAll(atomikosProperties.asProperties());
+        if (StringUtils.isNullOrEmpty(properties.get("com.atomikos.icatch.service"))) {
+            properties.put("com.atomikos.icatch.service", "com.atomikos.icatch.standalone.UserTransactionServiceFactory");
+        }
+        return new UserTransactionServiceImp(properties);
+    }
+
+    /**
+     * 默认数据库链接
+     */
+    @Primary
+    @Bean(initMethod = "init", name = "dataSource", destroyMethod = "close")
+    @ConditionalOnMissingBean(DataSource.class)
+    @Cacheable
+    public DataSource dataSource() {
+        AtomikosDataSourceBean dataSourceBean = new AtomikosDataSourceBean();
+        properties.putProperties(dataSourceBean);
+        return dataSourceBean;
+    }
+
+    @Bean(name = "dynamicDataSource")
+    public DynamicXaDataSourceImpl dynamicXaDataSource(@Qualifier("dataSource") DataSource dataSource) {
+        DynamicXaDataSourceImpl dynamicXaDataSource = new DynamicXaDataSourceImpl(dataSource, properties.getType());
+        DataSourceHolder.install(dynamicXaDataSource);
+        return dynamicXaDataSource;
+    }
+
+    @Bean(initMethod = "init", destroyMethod = "close")
+    public UserTransactionManager userTransactionManager(
+            UserTransactionService userTransactionService) {
+        UserTransactionManager transactionManager = new UserTransactionManager();
+        transactionManager.setForceShutdown(true);
+        transactionManager.setStartupTransactionService(false);
+        return transactionManager;
+    }
+
+    @Bean
+    public UserTransactionImp userTransaction() throws SystemException {
+        UserTransactionImp userTransactionImp = new UserTransactionImp();
+        userTransactionImp.setTransactionTimeout(properties.getTransactionTimeout());
+        return userTransactionImp;
+    }
+
+    @Bean
+    public JtaTransactionManager transactionManager(UserTransactionManager userTransactionManager, UserTransactionImp userTransaction) throws SystemException {
+        JtaTransactionManager jtaTransactionManager = new JtaTransactionManager();
+        jtaTransactionManager.setTransactionManager(userTransactionManager);
+        jtaTransactionManager.setUserTransaction(userTransaction);
+        jtaTransactionManager.setAllowCustomIsolationLevels(true);
+        return jtaTransactionManager;
+    }
+
+    @Bean(name = "sqlExecutor")
+    @ConditionalOnMissingBean(DynamicDataSourceSqlExecutorService.class)
+    public DynamicDataSourceSqlExecutorService sqlExecutor() {
+        return new DynamicDataSourceSqlExecutorService();
+    }
+
+    @Bean
+    public AnnotationDataSourceChangeConfiguration annotationDataSourceChangeConfiguration() {
+        return new AnnotationDataSourceChangeConfiguration();
+    }
+
+    @Aspect
+    public static class AnnotationDataSourceChangeConfiguration {
+        @Around(value = "@annotation(dataSource)")
+        public Object useDatasource(ProceedingJoinPoint pjp, UseDataSource dataSource) throws Throwable {
+            try {
+                DynamicDataSource.use(dataSource.value());
+                return pjp.proceed();
+            } finally {
+                DynamicDataSource.useDefault(false);
+            }
+        }
+
+        @Around(value = "@annotation(dataSource)")
+        public Object useDefaultDatasource(ProceedingJoinPoint pjp, UseDefaultDataSource dataSource) throws Throwable {
+            try {
+                DynamicDataSource.useDefault(dataSource.value());
+                return pjp.proceed();
+            } finally {
+                if (dataSource.value())
+                    DynamicDataSource.useLast();
+            }
+        }
+    }
+}
