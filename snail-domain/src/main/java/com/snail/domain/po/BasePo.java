@@ -1,0 +1,71 @@
+package com.snail.domain.po;
+
+import java.util.LinkedHashMap;
+import java.io.Serializable;
+import java.util.Map;
+import java.util.UUID;
+
+/**
+ * PO对象基类，实现基本的属性和方法。新建的PO都应继承该类
+ */
+public class BasePo<PK> implements Serializable, Cloneable {
+    private static final long serialVersionUID = 9197157871004374522L;
+    /**
+     * 主键
+     */
+    private PK id;
+
+    public PK getId() {
+        return id;
+    }
+
+    public void setId(PK id) {
+        this.id = id;
+    }
+
+    /**
+     * 自定义属性
+     */
+    private Map<String, Object> properties;
+
+    public <T> T setProperty(String attr, T value) {
+        if (properties == null) properties = new LinkedHashMap<>();
+        properties.put(attr, value);
+        return value;
+    }
+
+    public <T> T getProperty(String attr) {
+        if (properties == null) return null;
+        return ((T) properties.get(attr));
+    }
+
+    @Override
+    public int hashCode() {
+        if (getId() == null) return 0;
+        return getId().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        return this.hashCode() == obj.hashCode();
+    }
+
+
+    /**
+     * 创建主键
+     *
+     */
+    public static String primaryKey() {
+        return UUID.randomUUID().toString().replace("-", "");
+    }
+
+    public Map<String, Object> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Map<String, Object> properties) {
+        this.properties = properties;
+    }
+
+}
