@@ -11,7 +11,7 @@ import java.util.Properties;
 
 @Configuration
 @AutoConfigureAfter(MybatisAutoConfiguration.class)
-public class MyBatisMapperScannerConfig {
+public class MapperScannerConfiguration {
 
     @Autowired
     private  MybatisProperties properties;
