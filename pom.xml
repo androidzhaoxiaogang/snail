@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>snail</groupId>
+    <groupId>io.github.zhaoxiaogang</groupId>
     <artifactId>snail-framework</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>${project.groupId}:${project.artifactId}</name>
@@ -44,16 +44,21 @@
         <module>snail-search</module>
         <module>snail-cache</module>
         <module>snail-domain</module>
+        <module>snail-dao</module>
+        <module>snail-datasource</module>
     </modules>
 
     <packaging>pom</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <project.build.jdk>${java.version}</project.build.jdk>
         <mysql.version>6.0.5</mysql.version>
         <spring.boot.version>1.4.3.RELEASE</spring.boot.version>
         <maven.scm.version>1.8.1</maven.scm.version>
         <maven.source.version>2.4</maven.source.version>
+        <aspectj.version>1.6.12</aspectj.version>
     </properties>
 
 
@@ -84,19 +89,30 @@
                 </executions>
             </plugin>
 
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-gpg-plugin</artifactId>-->
+                <!--<version>1.5</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>sign-artifacts</id>-->
+                        <!--<phase>verify</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>sign</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${project.build.jdk}</source>
+                    <target>${project.build.jdk}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
             </plugin>
 
         </plugins>
@@ -137,6 +153,12 @@
                 <version>${mysql.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>javax.transaction</groupId>
+                <artifactId>jta</artifactId>
+                <version>1.1</version>
+            </dependency>
+
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -145,6 +167,8 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+
 
         </dependencies>
     </dependencyManagement>
