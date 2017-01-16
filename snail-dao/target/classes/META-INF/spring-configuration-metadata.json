@@ -1,0 +1,80 @@
+{
+  "groups": [{
+    "name": "mybatis",
+    "type": "com.snail.dao.MapperProperties",
+    "sourceType": "com.snail.dao.MapperProperties"
+  }],
+  "properties": [
+    {
+      "name": "mybatis.b-e-f-o-r-e",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.snail.dao.MapperProperties"
+    },
+    {
+      "name": "mybatis.before",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.snail.dao.MapperProperties"
+    },
+    {
+      "name": "mybatis.catalog",
+      "type": "java.lang.String",
+      "sourceType": "com.snail.dao.MapperProperties"
+    },
+    {
+      "name": "mybatis.enable-method-annotation",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.snail.dao.MapperProperties"
+    },
+    {
+      "name": "mybatis.i-d-e-n-t-i-t-y",
+      "type": "java.lang.String",
+      "sourceType": "com.snail.dao.MapperProperties"
+    },
+    {
+      "name": "mybatis.identity",
+      "type": "java.lang.String",
+      "sourceType": "com.snail.dao.MapperProperties"
+    },
+    {
+      "name": "mybatis.mappers",
+      "type": "java.util.List<java.lang.Class>",
+      "sourceType": "com.snail.dao.MapperProperties"
+    },
+    {
+      "name": "mybatis.not-empty",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.snail.dao.MapperProperties"
+    },
+    {
+      "name": "mybatis.pagehelper",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "sourceType": "com.snail.dao.MapperProperties"
+    },
+    {
+      "name": "mybatis.schema",
+      "type": "java.lang.String",
+      "sourceType": "com.snail.dao.MapperProperties"
+    },
+    {
+      "name": "mybatis.seq-format",
+      "type": "java.lang.String",
+      "sourceType": "com.snail.dao.MapperProperties"
+    },
+    {
+      "name": "mybatis.style",
+      "type": "tk.mybatis.mapper.code.Style",
+      "sourceType": "com.snail.dao.MapperProperties"
+    },
+    {
+      "name": "mybatis.u-u-i-d",
+      "type": "java.lang.String",
+      "sourceType": "com.snail.dao.MapperProperties"
+    },
+    {
+      "name": "mybatis.uuid",
+      "type": "java.lang.String",
+      "sourceType": "com.snail.dao.MapperProperties"
+    }
+  ],
+  "hints": []
+}

@@ -36,7 +36,6 @@
     <modules>
         <module>snail-common</module>
         <module>snail-service</module>
-        <module>snail-network</module>
         <module>snail-datasource</module>
         <module>snail-task</module>
         <module>snail-mq</module>
@@ -45,6 +44,7 @@
         <module>snail-cache</module>
         <module>snail-domain</module>
         <module>snail-dao</module>
+        <module>snail-sample</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -60,6 +60,7 @@
         <aspectj.version>1.6.12</aspectj.version>
         <pagehelper.version>5.0.0</pagehelper.version>
         <mapper.version>3.3.9</mapper.version>
+        <cglib.version>3.2.2</cglib.version>
     </properties>
 
 

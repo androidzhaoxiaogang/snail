@@ -31,13 +31,10 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class MapperAutoConfiguration {
 
-    private final SqlSessionFactory sqlSessionFactory;
     @Autowired
-    private       MapperProperties  properties;
-
-    public MapperAutoConfiguration(SqlSessionFactory sqlSessionFactory) {
-        this.sqlSessionFactory = sqlSessionFactory;
-    }
+    private SqlSessionFactory sqlSessionFactory;
+    @Autowired
+    private MapperProperties  properties;
 
     @PostConstruct
     public void addPageInterceptor() {
