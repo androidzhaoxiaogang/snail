@@ -1,10 +1,12 @@
 package com.snail.sample.impl;
 
+import com.snail.sample.dao.UserMapper;
 import com.snail.sample.domain.po.User;
 import com.snail.sample.service.UserService;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -14,6 +16,8 @@ import java.util.List;
 
 @Service("userService")
 public class UserServiceImpl implements UserService<User, Integer> {
+    @Resource
+    private UserMapper userMapper;
 
     @Override
     public int update(List<User> users) {
@@ -27,6 +31,6 @@ public class UserServiceImpl implements UserService<User, Integer> {
 
     @Override
     public Mapper getMapper() {
-        return null;
+        return this.userMapper;
     }
 }

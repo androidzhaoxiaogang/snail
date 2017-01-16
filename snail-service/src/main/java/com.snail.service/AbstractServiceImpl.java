@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 /**
  * Created by zhaoxiaogang on 2017/1/14.
  */
-public abstract class AbstractServiceImpl<Po extends BasePo<PK>, PK> implements BaseService<Po, PK>  {
+public abstract class AbstractServiceImpl<PO extends BasePo<PK>, PK> implements BaseService<PO, PK>  {
     @Resource
     private Mapper mapper;
 

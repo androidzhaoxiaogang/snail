@@ -2,11 +2,14 @@ package com.snail.sample.domain.po;
 
 import com.snail.domain.po.BasePo;
 
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
  * Created by zhaoxiaogang on 2017/1/14.
  */
+
+@Table(name="user")
 public class User extends BasePo<Integer> implements Serializable {
     //@Id
     //@ColumnType(jdbcType = JdbcType.)
