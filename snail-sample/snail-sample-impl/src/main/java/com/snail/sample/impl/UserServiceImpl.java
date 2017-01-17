@@ -3,10 +3,9 @@ package com.snail.sample.impl;
 import com.snail.sample.dao.UserMapper;
 import com.snail.sample.domain.po.User;
 import com.snail.sample.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.common.Mapper;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -15,8 +14,8 @@ import java.util.List;
  */
 
 @Service("userService")
-public class UserServiceImpl implements UserService<User, Integer> {
-    @Resource
+public class UserServiceImpl implements UserService {
+    @Autowired
     private UserMapper userMapper;
 
     @Override
@@ -30,7 +29,7 @@ public class UserServiceImpl implements UserService<User, Integer> {
     }
 
     @Override
-    public Mapper getMapper() {
-        return this.userMapper;
+    public UserMapper getMapper() {
+        return userMapper;
     }
 }

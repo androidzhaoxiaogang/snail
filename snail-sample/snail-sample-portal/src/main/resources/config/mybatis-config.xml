@@ -51,7 +51,7 @@
         <!--<setting name="proxyFactory" value="CGLIB"/>-->
     <!--</settings>-->
     <typeAliases>
-        <package name="com.snail.sample.domain"/>
+        <package name="com.snail.sample.domain.po"/>
     </typeAliases>
     <mappers>
 

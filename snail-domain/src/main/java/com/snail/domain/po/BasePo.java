@@ -1,8 +1,7 @@
 package com.snail.domain.po;
 
-import java.util.LinkedHashMap;
+import javax.persistence.Transient;
 import java.io.Serializable;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -13,7 +12,8 @@ public class BasePo<PK> implements Serializable, Cloneable {
     /**
      * 主键
      */
-    private PK id;
+    @Transient
+    protected PK id;
 
     public PK getId() {
         return id;
@@ -23,21 +23,6 @@ public class BasePo<PK> implements Serializable, Cloneable {
         this.id = id;
     }
 
-    /**
-     * 自定义属性
-     */
-    private Map<String, Object> properties;
-
-    public <T> T setProperty(String attr, T value) {
-        if (properties == null) properties = new LinkedHashMap<>();
-        properties.put(attr, value);
-        return value;
-    }
-
-    public <T> T getProperty(String attr) {
-        if (properties == null) return null;
-        return ((T) properties.get(attr));
-    }
 
     @Override
     public int hashCode() {
@@ -51,7 +36,6 @@ public class BasePo<PK> implements Serializable, Cloneable {
         return this.hashCode() == obj.hashCode();
     }
 
-
     /**
      * 创建主键
      *
@@ -60,12 +44,6 @@ public class BasePo<PK> implements Serializable, Cloneable {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
-    public Map<String, Object> getProperties() {
-        return properties;
-    }
 
-    public void setProperties(Map<String, Object> properties) {
-        this.properties = properties;
-    }
 
 }

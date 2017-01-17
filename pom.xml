@@ -59,7 +59,6 @@
         <maven.source.version>2.4</maven.source.version>
         <aspectj.version>1.6.12</aspectj.version>
         <pagehelper.version>5.0.0</pagehelper.version>
-        <mapper.version>3.3.9</mapper.version>
         <cglib.version>3.2.2</cglib.version>
     </properties>
 
@@ -165,12 +164,6 @@
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper</artifactId>
                 <version>${pagehelper.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>tk.mybatis</groupId>
-                <artifactId>mapper</artifactId>
-                <version>${mapper.version}</version>
             </dependency>
 
             <dependency>

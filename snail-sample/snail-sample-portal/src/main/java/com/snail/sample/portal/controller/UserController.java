@@ -22,8 +22,8 @@ public class UserController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public BaseResult<User> info(@PathVariable("id") int id) {
-        User user = (User) userService.selectByPk(15);
-        return new BaseResult<User>(true, user);
+        User user =  userService.selectByPk(id);
+        return new BaseResult<>(true, user);
     }
 
 }
