@@ -4,7 +4,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -83,4 +82,16 @@ public class WebUtil {
         return basePath;
     }
 
+    /**
+     * 尝试获取当前请求的HttpServletRequest实例
+     *
+     * @return HttpServletRequest
+     */
+    public static HttpServletRequest getHttpServletRequest() {
+        try {
+            return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

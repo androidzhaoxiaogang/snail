@@ -4,23 +4,7 @@
 
 .idea/modules.xml
 
-.idea/modules.xml
-
-.idea/modules.xml
-
-snail.iml
-
-snail.iml
-
-snail.iml
-
 *.iml
 
 *.class
-/snail-dao/target/maven-archiver/pom.properties
-/snail-dao/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
-/snail-dao/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
-/snail-dao/target/snail-dao-1.0-SNAPSHOT-sources.jar
-/snail-dao/target/snail-dao-1.0-SNAPSHOT.jar
-/snail-sample/snail-sample-portal/target/classes/application.properties
-/snail-sample/snail-sample-portal/target/classes/config/mybatis-config.xml
+
