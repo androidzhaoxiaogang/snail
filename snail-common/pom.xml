@@ -10,6 +10,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>snail-common</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>snail-exception</module>
+        <module>snail-vo</module>
+        <module>snail-utils</module>
+        <module>snail-db</module>
+        <module>snail-validator</module>
+    </modules>
 
     <dependencies>
         <dependency>
