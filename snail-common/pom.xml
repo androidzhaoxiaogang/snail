@@ -18,6 +18,7 @@
         <module>snail-utils</module>
         <module>snail-db</module>
         <module>snail-validator</module>
+        <module>snail-editor</module>
     </modules>
 
     <dependencies>

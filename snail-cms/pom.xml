@@ -10,6 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>snail-cms</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>snail-cms-admin</module>
+        <module>snail-cms-api</module>
+        <module>snail-cms-service</module>
+        <module>snail-cms-domain</module>
+    </modules>
 
 
 </project>
