@@ -1,17 +1,28 @@
 package com.snail.common.util;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.text.ParseException;
 import java.util.Date;
 
 /**
  * TimeUtils
  * 
  */
-public class TimeUtils {
+public class TimeUtils extends DateUtils {
+	/**
+	 * 日期格式
+	 */
+	private static final String[] PARSE_PATTERNS = {
+			"yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy-MM",
+			"yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "yyyy/MM/dd HH:mm", "yyyy/MM",
+			"yyyy.MM.dd", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm", "yyyy.MM"
+	};
+
 	/**
 	 * 年(yyyy)
 	 */
@@ -534,6 +545,17 @@ public class TimeUtils {
 			return date != null;
 		} catch (Exception e) {
 			return false;
+		}
+	}
+
+	public static Date parseDate(Object str) {
+		if (str == null) {
+			return null;
+		}
+		try {
+			return parseDate(str.toString(), PARSE_PATTERNS);
+		} catch (ParseException e) {
+			return null;
 		}
 	}
 }
