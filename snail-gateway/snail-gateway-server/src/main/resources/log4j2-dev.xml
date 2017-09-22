@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="log-path">/home/snail/auth/logs</Property>
+    </Properties>
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%highlight{%d{HH:mm:ss.SSS} %-5level %logger{36}.%M() @%L - %msg%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=black, DEBUG=green bold, TRACE=blue}"/>
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <!--<ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>-->
+
+        </Console>
+
+        <RollingRandomAccessFile name="CONTROLLER_LOG_FILE" fileName="${log-path}/controller.log"
+                                 filePattern="${log-path}/$${date:yyyy-MM}/controller-%d{yyyy-MM-dd}-%i.log.gz">
+            <!-- <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" /> -->
+            <PatternLayout pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n" />
+            <!-- 分文件策略 -->
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <!-- 多少文件之前的文件将被删除 -->
+            <DefaultRolloverStrategy max="20"/>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="SERVICE_LOG_FILE" fileName="${log-path}/service.log"
+                                 filePattern="${log-path}/$${date:yyyy-MM}/service-%d{yyyy-MM-dd}-%i.log.gz">
+            <!-- <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" /> -->
+            <PatternLayout pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <!-- 多少文件之前的文件将被删除 -->
+            <DefaultRolloverStrategy max="20"/>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="Async_File" fileName="${log-path}/async_operate.log" immediateFlush="false" append="true"
+                                 filePattern="${log-path}/$${date:yyyy-MM}/job-%d{yyyy-MM-dd}-%i.log.gz">
+            <!-- <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" /> -->
+            <PatternLayout pattern="%m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="6" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+            <!-- 多少文件之前的文件将被删除 -->
+            <DefaultRolloverStrategy max="200"/>
+        </RollingRandomAccessFile>
+
+
+    </Appenders>
+    <Loggers>
+        <!-- Root Logger -->
+        <Root level="DEBUG">
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+
+        <!--<Logger name="com.moretech.core.impl.mapper" level="DEBUG" additivity="true">-->
+            <!--<AppenderRef ref="SERVICE_LOG_FILE"/>-->
+        <!--</Logger>-->
+
+        <!--<Logger name="com.moretech.core.impl.service" level="DEBUG" additivity="true">-->
+            <!--<AppenderRef ref="SERVICE_LOG_FILE"/>-->
+        <!--</Logger>-->
+
+        <!--<Logger name="com.moretech.core.impl.search" level="DEBUG" additivity="true">-->
+            <!--<AppenderRef ref="SERVICE_LOG_FILE"/>-->
+        <!--</Logger>-->
+
+        <!--<Logger name="com.moretech.core.api.service" level="DEBUG" additivity="true">-->
+            <!--<AppenderRef ref="SERVICE_LOG_FILE"/>-->
+        <!--</Logger>-->
+
+        <!--<Logger name="com.moretech.core.portal.controller" level="DEBUG" additivity="true">-->
+            <!--<AppenderRef ref="CONTROLLER_LOG_FILE"/>-->
+        <!--</Logger>-->
+
+        <!--<AsyncLogger name="com.moretech.core.portal.common.log" level="DEBUG" includeLocation="false">-->
+            <!--<AppenderRef ref="Async_File"/>-->
+        <!--</AsyncLogger>-->
+
+        <Logger name="org.apache.lucene" level="INFO"/>
+        <Logger name="org.elasticsearch" level="INFO"/>
+        <Logger name="org.springframework" level="WARN"/>
+        <Logger name="org.springframework.web" level="WARN"/>
+        <Logger name="org.springframework.security" level="INFO"/>
+        <Logger name="org.springframework.cache" level="WARN"/>
+        <Logger name="springfox" level="WARN"/>
+        <Logger name="net.sf.ehcache" level="WARN"/>
+        <Logger name="org.apache" level="WARN"/>
+        <Logger name="org.hibernate.validator" level="WARN"/>
+        <Logger name="org.hibernate" level="WARN"/>
+        <!-- mybatis loggers -->
+        <Logger name="com.ibatis" level="DEBUG" />
+        <Logger name="tk.mybatis" level="DEBUG" />
+        <!-- sql loggers -->
+        <Logger name="java.sql.Connection" level="DEBUG"  additivity="true"/>
+        <Logger name="java.sql.Statement" level="DEBUG" additivity="true" />
+        <Logger name="java.sql.PreparedStatement" level="=DEBUG"  additivity="true"/>
+        <Logger name="java.sql.ResultSet" level="DEBUG"  additivity="true"/>
+        <Logger name="org.springframework.data.elasticsearch.repository" level="DEBUG"  additivity="true"/>
+
+
+    </Loggers>
+</Configuration>
